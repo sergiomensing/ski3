@@ -122,8 +122,6 @@ const Home: React.FC = () => {
       >
         <img
           src="/ski_with_me.svg"
-          width={480}
-          height="auto"
           onClick={() => handleClickSound()}
           className="skiImage"
         />
