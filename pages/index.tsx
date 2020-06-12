@@ -2,6 +2,7 @@ import React from "react";
 import { Howl, Howler } from "howler";
 import FlipMove from "react-flip-move";
 import { v4 as uuidv4 } from "uuid";
+import GlitchHover from "../components/GlitchHover";
 
 let sergioRate = 1;
 let anneRate = 1;
