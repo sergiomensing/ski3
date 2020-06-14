@@ -6,6 +6,8 @@ import GlitchHover from "../components/GlitchHover";
 
 let sergioRate = 1;
 let anneRate = 1;
+let nienkeRate = 1;
+let arneRate = 1;
 let playing = false;
 
 type QueuedSound = {
@@ -44,9 +46,17 @@ function useAnimationFrame(callback) {
   }, []); // Make sure the effect runs only once
 }
 
+function getRandomDefaultPerson() {
+  return ["anne", "arne", "nienke", "sergio"][randomIntFromInterval(0, 3)];
+}
+
 const Home: React.FC = () => {
   const [queue, setQueue] = React.useState<QueuedSound[]>([]);
-  const [person, setPerson] = React.useState<string>("anne");
+  const [person, setPerson] = React.useState<string>("");
+
+  React.useEffect(() => {
+    setPerson(getRandomDefaultPerson());
+  }, []);
 
   const anne = React.useRef(
     new Howl({
@@ -54,7 +64,6 @@ const Home: React.FC = () => {
       onend: (id) => {
         playing = false;
         anneRate = anneRate + 0.1;
-        console.log(anneRate);
         setQueue((queue) => queue.filter((v, i) => i !== 0));
       },
     })
@@ -71,17 +80,73 @@ const Home: React.FC = () => {
     })
   ).current;
 
+  const arne = React.useRef(
+    new Howl({
+      src: ["/arne_ski.mp3"],
+      onend: (id) => {
+        playing = false;
+        arneRate = arneRate + 0.1;
+        setQueue((queue) => queue.filter((v, i) => i !== 0));
+      },
+    })
+  ).current;
+
+  const nienke = React.useRef(
+    new Howl({
+      src: ["/nienke_ski.mp3"],
+      onend: (id) => {
+        playing = false;
+        nienkeRate = nienkeRate + 0.1;
+        setQueue((queue) => queue.filter((v, i) => i !== 0));
+      },
+    })
+  ).current;
+
   function handleClickSound() {
     setQueue((queue) => [
       ...queue,
       {
         id: uuidv4(),
         rotate: randomIntFromInterval(0, 360),
-        play: () => (person === "anne" ? anne.play() : sergio.play()),
+        play: () => {
+          switch (person) {
+            case "anne":
+              return anne.play();
+            case "arne":
+              return arne.play();
+            case "nienke":
+              return nienke.play();
+            case "sergio":
+              return sergio.play();
+            default:
+              return;
+          }
+        },
         person: person,
       },
     ]);
   }
+
+  const handleKeyPress = (e: KeyboardEvent) => {
+    switch (e.key) {
+      case "a":
+        return setPerson("sergio");
+      case "s":
+        return setPerson("anne");
+      case "d":
+        return setPerson("arne");
+      case "f":
+        return setPerson("nienke");
+      default:
+        return;
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener("keypress", handleKeyPress);
+
+    return () => document.removeEventListener("keypress", handleKeyPress);
+  }, []);
 
   useAnimationFrame((deltaTime) => {
     runQueue();
@@ -95,10 +160,15 @@ const Home: React.FC = () => {
     if (queue.length > 0) {
       if (!playing) {
         playing = true;
-        if (queue[0].person == "anne") {
-          anne.rate(anneRate);
-        } else {
-          sergio.rate(sergioRate);
+        switch (queue[0].person) {
+          case "anne":
+            anne.rate(anneRate);
+          case "arne":
+            arne.rate(arneRate);
+          case "nienke":
+            nienke.rate(nienkeRate);
+          default:
+            sergio.rate(sergioRate);
         }
         queue[0].play();
       }
@@ -107,6 +177,8 @@ const Home: React.FC = () => {
 
   React.useEffect(() => {
     anne.once("load", () => {});
+    arne.once("load", () => {});
+    nienke.once("load", () => {});
     sergio.once("load", () => {});
   }, []);
 
@@ -151,15 +223,19 @@ const Home: React.FC = () => {
           <div
             onClick={() => setPerson("sergio")}
             className={`sergio ${person === "sergio" ? "active" : ""}`}
-          >
-            <img src="/sergio.jpeg" />
-          </div>
+          ></div>
           <div
             onClick={() => setPerson("anne")}
             className={`anne ${person === "anne" ? "active" : ""}`}
-          >
-            <img src="/anne.jpeg" />
-          </div>
+          ></div>
+          <div
+            onClick={() => setPerson("arne")}
+            className={`arne ${person === "arne" ? "active" : ""}`}
+          ></div>
+          <div
+            onClick={() => setPerson("nienke")}
+            className={`nienke ${person === "nienke" ? "active" : ""}`}
+          ></div>
         </div>
       </div>
     </>
