@@ -431,7 +431,7 @@ header .container {
 .skiPersons {
   position: absolute;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
   padding: 80px 24px;
   bottom: 0;
   max-width: 640px;
