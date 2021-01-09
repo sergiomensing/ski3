@@ -8,6 +8,8 @@ let sergioRate = 1;
 let anneRate = 1;
 let nienkeRate = 1;
 let arneRate = 1;
+let aileenRate = 1;
+let stefanRate = 1;
 let playing = false;
 
 type QueuedSound = {
@@ -47,7 +49,9 @@ function useAnimationFrame(callback) {
 }
 
 function getRandomDefaultPerson() {
-  return ["anne", "arne", "nienke", "sergio"][randomIntFromInterval(0, 3)];
+  return ["anne", "arne", "nienke", "sergio", "aileen", "stefan"][
+    randomIntFromInterval(0, 3)
+  ];
 }
 
 const Home: React.FC = () => {
@@ -102,6 +106,28 @@ const Home: React.FC = () => {
     })
   ).current;
 
+  const aileen = React.useRef(
+    new Howl({
+      src: ["/aileen_ski.mp3"],
+      onend: (id) => {
+        playing = false;
+        aileenRate = aileenRate + 0.1;
+        setQueue((queue) => queue.filter((v, i) => i !== 0));
+      },
+    })
+  ).current;
+
+  const stefan = React.useRef(
+    new Howl({
+      src: ["/stefan_ski.mp3"],
+      onend: (id) => {
+        playing = false;
+        stefanRate = stefanRate + 0.1;
+        setQueue((queue) => queue.filter((v, i) => i !== 0));
+      },
+    })
+  ).current;
+
   function handleClickSound() {
     setQueue((queue) => [
       ...queue,
@@ -110,6 +136,10 @@ const Home: React.FC = () => {
         rotate: randomIntFromInterval(0, 360),
         play: () => {
           switch (person) {
+            case "aileen":
+              return aileen.play();
+            case "stefan":
+              return stefan.play();
             case "anne":
               return anne.play();
             case "arne":
@@ -137,6 +167,10 @@ const Home: React.FC = () => {
         return setPerson("arne");
       case "f":
         return setPerson("nienke");
+      case "g":
+        return setPerson("aileen");
+      case "h":
+        return setPerson("stefan");
       default:
         return;
     }
@@ -163,6 +197,10 @@ const Home: React.FC = () => {
         switch (queue[0].person) {
           case "anne":
             anne.rate(anneRate);
+          case "aileen":
+            aileen.rate(aileenRate);
+          case "stefan":
+            stefan.rate(stefanRate);
           case "arne":
             arne.rate(arneRate);
           case "nienke":
@@ -180,6 +218,8 @@ const Home: React.FC = () => {
     arne.once("load", () => {});
     nienke.once("load", () => {});
     sergio.once("load", () => {});
+    aileen.once("load", () => {});
+    stefan.once("load", () => {});
   }, []);
 
   return (
@@ -235,6 +275,14 @@ const Home: React.FC = () => {
           <div
             onClick={() => setPerson("nienke")}
             className={`nienke ${person === "nienke" ? "active" : ""}`}
+          ></div>
+          <div
+            onClick={() => setPerson("aileen")}
+            className={`aileen ${person === "aileen" ? "active" : ""}`}
+          ></div>
+          <div
+            onClick={() => setPerson("stefan")}
+            className={`stefan ${person === "stefan" ? "active" : ""}`}
           ></div>
         </div>
       </div>

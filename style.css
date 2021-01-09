@@ -431,10 +431,10 @@ header .container {
 .skiPersons {
   position: absolute;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   padding: 80px 24px;
   bottom: 0;
-  max-width: 420px;
+  max-width: 640px;
   gap: 16px;
   width: 100%;
 }
@@ -496,4 +496,18 @@ header .container {
 }
 .skiPersons > div.active.nienke {
   border-color: #b7481a;
+}
+
+.skiPersons > div.aileen {
+  background-image: url("/aileen.jpg");
+}
+.skiPersons > div.active.aileen {
+  border-color: #bf3029;
+}
+
+.skiPersons > div.stefan {
+  background-image: url("/stefan.png");
+}
+.skiPersons > div.active.stefan {
+  border-color: #909090;
 }
