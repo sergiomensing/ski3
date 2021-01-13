@@ -2,6 +2,7 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import Link from "next/link";
 import "../style.css";
+import "../daw.css";
 import React from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {

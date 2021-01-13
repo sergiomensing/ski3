@@ -19,6 +19,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-flip-move": "^3.0.4",
+    "tone": "^14.7.77",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

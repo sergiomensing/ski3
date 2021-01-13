@@ -1,0 +1,62 @@
+.piano {
+  display: flex;
+}
+
+.pianoOctave {
+  width: calc(100% / 3);
+  display: flex;
+  background: #eee;
+  position: relative;
+}
+
+.piano .key {
+  border: 1px solid #000;
+  background: #fff;
+  height: 200px;
+  width: calc(100% / 7);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.piano .key.down {
+  background: lightblue;
+}
+
+.piano .key.black.down {
+  background: darkblue;
+}
+
+.piano .key span {
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  color: #ccc;
+}
+
+.piano .key.black {
+  background: #000;
+  position: absolute;
+  height: 140px;
+  left: -100px;
+  transform: scaleX(0.6);
+}
+
+.piano .key.black:nth-child(2) {
+  left: calc(100% / 14);
+}
+
+.piano .key.black:nth-child(4) {
+  left: calc(100% / 14 * 3);
+}
+
+.piano .key.black:nth-child(7) {
+  left: calc(100% / 14 * 7);
+}
+
+.piano .key.black:nth-child(9) {
+  left: calc(100% / 14 * 9);
+}
+
+.piano .key.black:nth-child(11) {
+  left: calc(100% / 14 * 11);
+}
