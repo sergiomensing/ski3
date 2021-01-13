@@ -511,3 +511,10 @@ header .container {
 .skiPersons > div.active.stefan {
   border-color: #909090;
 }
+
+.skiPersons > div.sonja {
+  background-image: url("/sonja.jpg");
+}
+.skiPersons > div.active.sonja {
+  border-color: #337910;
+}

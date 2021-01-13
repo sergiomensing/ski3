@@ -10,6 +10,7 @@ let nienkeRate = 1;
 let arneRate = 1;
 let aileenRate = 1;
 let stefanRate = 1;
+let sonjaRate = 1;
 let playing = false;
 
 type QueuedSound = {
@@ -49,8 +50,8 @@ function useAnimationFrame(callback) {
 }
 
 function getRandomDefaultPerson() {
-  return ["anne", "arne", "nienke", "sergio", "aileen", "stefan"][
-    randomIntFromInterval(0, 3)
+  return ["anne", "arne", "nienke", "sergio", "aileen", "stefan", "sonja"][
+    randomIntFromInterval(0, 7)
   ];
 }
 
@@ -128,6 +129,17 @@ const Home: React.FC = () => {
     })
   ).current;
 
+  const sonja = React.useRef(
+    new Howl({
+      src: ["/sonja_ski.mp3"],
+      onend: (id) => {
+        playing = false;
+        sonjaRate = sonjaRate + 0.1;
+        setQueue((queue) => queue.filter((v, i) => i !== 0));
+      },
+    })
+  ).current;
+
   function handleClickSound() {
     setQueue((queue) => [
       ...queue,
@@ -148,6 +160,8 @@ const Home: React.FC = () => {
               return nienke.play();
             case "sergio":
               return sergio.play();
+            case "sonja":
+              return sonja.play();
             default:
               return;
           }
@@ -171,6 +185,8 @@ const Home: React.FC = () => {
         return setPerson("aileen");
       case "h":
         return setPerson("stefan");
+      case "j":
+        return setPerson("sonja");
       default:
         return;
     }
@@ -205,6 +221,8 @@ const Home: React.FC = () => {
             arne.rate(arneRate);
           case "nienke":
             nienke.rate(nienkeRate);
+          case "sonja":
+            sonja.rate(sonjaRate);
           default:
             sergio.rate(sergioRate);
         }
@@ -220,6 +238,7 @@ const Home: React.FC = () => {
     sergio.once("load", () => {});
     aileen.once("load", () => {});
     stefan.once("load", () => {});
+    sonja.once("load", () => {});
   }, []);
 
   return (
@@ -283,6 +302,10 @@ const Home: React.FC = () => {
           <div
             onClick={() => setPerson("stefan")}
             className={`stefan ${person === "stefan" ? "active" : ""}`}
+          ></div>
+          <div
+            onClick={() => setPerson("sonja")}
+            className={`sonja ${person === "sonja" ? "active" : ""}`}
           ></div>
         </div>
       </div>
