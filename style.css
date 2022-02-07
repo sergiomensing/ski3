@@ -434,7 +434,7 @@ header .container {
   grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
   padding: 80px 24px;
   bottom: 0;
-  max-width: 640px;
+  max-width: 680px;
   gap: 16px;
   width: 100%;
 }
@@ -517,4 +517,11 @@ header .container {
 }
 .skiPersons > div.active.sonja {
   border-color: #337910;
+}
+
+.skiPersons > div.rob {
+  background-image: url("/rob.jpeg");
+}
+.skiPersons > div.active.rob {
+  border-color: #b2a99a;
 }

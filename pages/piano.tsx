@@ -71,9 +71,27 @@ const persons = {
     url: "nienke_ski.mp3",
     base: "E3",
   },
+  rob: {
+    url: "rob_ski_2.mp3",
+    base: "D2",
+  },
+  rob_special: {
+    url: "rob_ski.mp3",
+    base: "D3",
+  },
 };
 
-const names = ["sonja", "aileen", "nienke", "stefan", "arne", "sergio", "anne"];
+const names = [
+  "sonja",
+  "aileen",
+  "nienke",
+  "stefan",
+  "arne",
+  "sergio",
+  "anne",
+  "rob",
+  "rob_special",
+];
 
 function ClientOnlyDaw() {
   const [octave, setOctave] = useState(3);
@@ -161,6 +179,12 @@ function ClientOnlyDaw() {
     if (e.key === "7") {
       setPerson("nienke");
     }
+    if (e.key === "8") {
+      setPerson("rob");
+    }
+    if (e.key === "9") {
+      setPerson("rob_special");
+    }
 
     if (e.key === "z") {
       setOctave((o) => clamp(o - 1, 2, 4));
@@ -223,6 +247,8 @@ function ClientOnlyDaw() {
               <option value="anne">Anne</option>
               <option value="stefan">Stefan</option>
               <option value="aileen">Aileen</option>
+              <option value="rob">Rob</option>
+              <option value="rob_special">Rob (special)</option>
             </select>
           </p>
           <p>
@@ -282,7 +308,7 @@ function ClientOnlyDaw() {
         </p>
         <p>
           Use numbers <span style={{ color: "#999" }}>1</span> trough{" "}
-          <span style={{ color: "#999" }}>7</span> to change the person
+          <span style={{ color: "#999" }}>9</span> to change the person
         </p>
         <p>The default selected person is chosen at random.</p>
       </div>
