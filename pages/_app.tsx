@@ -44,7 +44,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             </a>
           </Link>
 
-          <span>Wordt leuk!</span>
+          <span>Was leuk!</span>
         </div>
       </header>
       <Component {...pageProps} />
